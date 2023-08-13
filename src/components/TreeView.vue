@@ -11,13 +11,11 @@ export default {
         addFolder() {
             const label = prompt('Enter folder name');
             if (!label) return;
-
             this.$emit('addFolder', this.node, label);
         },
         addFile() {
             const label = prompt('Enter file name');
             if (!label) return;
-
             this.$emit('addFile', this.node, label);
         },
         deleteNode() {
@@ -35,13 +33,14 @@ export default {
               <small v-if="!node.children">(file)</small>
           </div>
           <div class="node__actions">
-              <button v-if="node.children" @click="addFolder">Add Folder</button>
-              <button v-if="node.children" @click="addFile">Add File</button>
-              <button v-if="node.id !== 1" @click="deleteNode">Delete</button>
+              <button v-if="node.children"  @click="addFolder">Add Folder</button>
+              <button v-if="node.children"  @click="addFile">Add File</button>
+              <button v-if="node.id !== 1"  @click="deleteNode">Delete</button>
           </div>
       </div>
       <div class="node__children">
           <TreeView
+              v-bind="$attrs"
               v-for="subnode in node.children"
               :key="subnode.id"
               :node="subnode"
