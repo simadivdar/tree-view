@@ -42,7 +42,8 @@ export default {
         },
         addFile(node, label) {
             console.log('addFile', node, label);
-            // put your code here
+            this.count++;
+            node.children.push({id:this.count,label: label});
         },
         deleteNode(node) {
             console.log('deleteNode', node);
