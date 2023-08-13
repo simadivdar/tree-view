@@ -1,6 +1,5 @@
 <script>
 import TreeView from './components/TreeView.vue';
-
 export default {
     components: {
         TreeView,
@@ -32,12 +31,14 @@ export default {
                         children: [],
                     }],
             },
+            count:5,
         };
     },
     methods: {
         addFolder(node, label) {
             console.log('addFolder', node, label);
-            // put your code here
+            this.count++;
+            node.children.push({id:this.count,label: label, children:[]});
         },
         addFile(node, label) {
             console.log('addFile', node, label);
