@@ -10,30 +10,9 @@ export default {
       node: {
         id: 1,
         label: "root",
-        children: [
-          {
-            id: 2,
-            label: "child 1",
-            children: [
-              {
-                id: 3,
-                label: "child 1.1",
-              },
-              {
-                id: 4,
-                label: "child 1.2",
-                children: [],
-              },
-            ],
-          },
-          {
-            id: 5,
-            label: "child 2",
-            children: [],
-          },
-        ],
+        children: [],
       },
-      count: 5,
+      count: 1,
     };
   },
   methods: {
