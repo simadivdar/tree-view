@@ -9,45 +9,71 @@ export default {
     return {
       node: {
         id: 1,
+        parentId: null,
         label: "root",
         children: [],
       },
-      count: 1,
+      countId: 1,
+      countParentId: 0,
     };
   },
   methods: {
     addFolder(node, label) {
       console.log("addFolder", node, label);
-      this.count++;
-      node.children.push({ id: this.count, label: label, children: [] });
+      this.countId++;
+      this.countParentId = node.parentId;
+      this.countParentId++;
+      node.children.push({
+        id: this.countId,
+        parentId: this.countParentId,
+        label: label,
+        children: [],
+      });
     },
     addFile(node, label) {
       console.log("addFile", node, label);
-      this.count++;
-      node.children.push({ id: this.count, label: label });
+      this.countId++;
+      this.countParentId = node.parentId;
+      this.countParentId++;
+      node.children.push({
+        id: this.countId,
+        parentId: this.countParentId,
+        label: label,
+      });
+      console.log(this.node);
     },
     deleteNode(node) {
       console.log("deleteNode", node);
       let child = this.node.children;
-      this.DeletedNode(child,node);
+      this.DeletedNode(child, node);
     },
-    DeletedNode(child,node){
-      if(Array.prototype.includes.call(child,node)){
-      const index = child.indexOf(node);
-      child.splice(index,1);
-      return;
-      }
-      else{
-        for(let i=0;i<child.length;i++){
-        if(child[i].children){
-          this.DeletedNode(child[i].children,node);
-        }
-        else{
-          continue;
-        }
+    /* DeletedNode(child, node) {
+      if (child.includes(node)) {
+        const index = child.indexOf(node);
+        child.splice(index, 1);
+      } else {
+        for (let i = 0; i < child.length; i++) {
+          if (child[i].children) {
+            this.DeletedNode(child[i].children, node);
+          }
         }
       }
-    }
+    },*/
+    DeletedNode(child, node) {
+      let parent = node.parentId;
+      let id = node.id;
+      for (let i = 0; i < child.length; i++) {
+        if (child[i].parentId === parent && child[i].id === id) {
+          const index = child.indexOf(child[i]);
+          child.splice(index, 1);
+          return;
+        } else {
+          if (child[i].children) {
+            this.DeletedNode(child[i].children, node);
+          }
+        }
+      }
+    },
   },
 };
 </script>
